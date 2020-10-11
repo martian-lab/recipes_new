@@ -37,9 +37,17 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":presentation")
+
     implementation      libraries.kotlin
 
     implementation      libraries.dagger
     kapt                libraries.daggerCompiler
+
+    implementation libraries.appcompat
 
 }

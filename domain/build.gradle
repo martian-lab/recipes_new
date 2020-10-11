@@ -38,6 +38,7 @@ dependencies {
 
     implementation libraries.kotlin
     implementation libraries.coreKtx
+    implementation libraries.coroutines
 
     implementation      libraries.dagger
     kapt                libraries.daggerCompiler

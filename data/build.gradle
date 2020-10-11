@@ -36,12 +36,25 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    implementation project(":domain")
 
     implementation libraries.kotlin
     implementation libraries.coreKtx
+    implementation libraries.coroutines
 
     implementation      libraries.dagger
     kapt                libraries.daggerCompiler
+
+    implementation libraries.room
+    implementation libraries.roomKtx
+    kapt libraries.roomKapt
+    implementation libraries.paging
+    implementation libraries.gson
+    implementation libraries.okhttp
+    implementation libraries.retrofit
+    implementation libraries.loginIntercepter
+    implementation libraries.gsonConverter
+
 
     testImplementation testLibraries.junit
 
