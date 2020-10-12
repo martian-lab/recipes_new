@@ -1,7 +1,7 @@
 package com.martianlab.recipes.tools.backend
 
 import com.google.gson.GsonBuilder
-import com.martianlab.recipes.domain.BackendApi
+import com.martianlab.recipes.domain.api.BackendApi
 import com.martianlab.recipes.entities.Category
 import com.martianlab.recipes.entities.Recipe
 import com.martianlab.recipes.tools.backend.mapper.toRecipeList
@@ -14,19 +14,19 @@ import com.martianlab.recipes.entities.Result
 import com.martianlab.recipes.tools.backend.mapper.toCategory
 import com.martianlab.recipes.tools.backend.mapper.toCategoryList
 
-object  BackendImpl : BackendApi {
+internal class BackendImpl() : BackendApi {
 
-    private const val URL = "http://www.utkonos.ru/api/rest/?"
-    val httpLoggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+    private val URL = "http://www.utkonos.ru/api/rest/?"
+    private val httpLoggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
-    val okHttpClient = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
+    private val okHttpClient = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
 
 
     private val caller = Retrofit.Builder()
         .baseUrl(URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         .addCallAdapterFactory(CallAdapterFactory())
-        //.client(okHttpClient)
+        .client(okHttpClient)
         .build()
         .create(Caller::class.java)
 

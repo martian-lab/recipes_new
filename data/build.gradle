@@ -55,6 +55,7 @@ dependencies {
     implementation libraries.loginIntercepter
     implementation libraries.gsonConverter
 
+    implementation libraries.firebaseCore
 
     testImplementation testLibraries.junit
 

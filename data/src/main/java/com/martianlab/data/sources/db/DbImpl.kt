@@ -2,7 +2,7 @@ package com.martianlab.recipes.tools.db
 
 import android.database.sqlite.SQLiteConstraintException
 import androidx.paging.DataSource
-import com.martianlab.recipes.data.db.DbApi
+import com.martianlab.recipes.domain.api.DbApi
 import com.martianlab.recipes.entities.Category
 import com.martianlab.recipes.entities.Recipe
 import com.martianlab.recipes.entities.RecipeIngredient
@@ -25,9 +25,9 @@ class DbImpl(
         return recipeDao.getRecipes().map { it.toRecipe() }
     }
 
-    override fun getRecipesPages(tags : List<RecipeTag>): DataSource.Factory<Int, Recipe> {
-        return recipeDao.getRecipesPaged(tags[0].id).map{ it.toRecipe()}
-    }
+//    override fun getRecipesPages(tags : List<RecipeTag>): DataSource.Factory<Int, Recipe> {
+//        return recipeDao.getRecipesPaged(tags[0].id).map{ it.toRecipe()}
+//    }
 
     override suspend fun getRecipeById(id: Long): Recipe {
         return recipeDao.getById(id).toRecipe()

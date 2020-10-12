@@ -23,7 +23,7 @@ import com.martianlab.recipes.tools.db.entities.*
     exportSchema = true
 )
 abstract class RecipesDb : RoomDatabase() {
-    abstract fun userDao(): UserDao
-    abstract fun categoryDao(): CategoryDao
-    abstract fun recipeDao(): RecipeDao
+    abstract val userDao: UserDao
+    abstract val categoryDao: CategoryDao
+    abstract val recipeDao: RecipeDao
 }

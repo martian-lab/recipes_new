@@ -1,12 +1,9 @@
 package com.martianlab.data.repository
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
 import com.google.gson.reflect.TypeToken
-import com.martianlab.recipes.data.db.DbApi
-import com.martianlab.recipes.domain.BackendApi
+import com.martianlab.recipes.domain.api.DbApi
+import com.martianlab.recipes.domain.api.BackendApi
 import com.martianlab.recipes.domain.RecipesRepository
 import com.martianlab.recipes.entities.*
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.martianlab.recipes.domain
+package com.martianlab.recipes.domain.api
 
 import com.martianlab.recipes.entities.Category
 import com.martianlab.recipes.entities.Recipe

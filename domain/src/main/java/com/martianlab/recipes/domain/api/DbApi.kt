@@ -1,6 +1,6 @@
-package com.martianlab.recipes.data.db
+package com.martianlab.recipes.domain.api
 
-import androidx.paging.DataSource
+
 import com.martianlab.recipes.entities.Category
 import com.martianlab.recipes.entities.Recipe
 import com.martianlab.recipes.entities.RecipeIngredient
@@ -13,7 +13,7 @@ interface DbApi{
 
     suspend fun getRecipes() : List<Recipe>
 
-    fun getRecipesPages(tags : List<RecipeTag>): DataSource.Factory<Int, Recipe>
+    //fun getRecipesPages(tags : List<RecipeTag>): DataSource.Factory<Int, Recipe>
 
     suspend fun getRecipeById(id : Long ) : Recipe
 
