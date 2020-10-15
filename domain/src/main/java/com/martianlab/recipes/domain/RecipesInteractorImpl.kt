@@ -1,17 +1,24 @@
 package com.martianlab.recipes.domain
 
-import com.martianlab.recipes.entities.Category
-import com.martianlab.recipes.entities.Recipe
-import com.martianlab.recipes.entities.RecipeIngredient
-import com.martianlab.recipes.entities.RecipeTag
+import com.martianlab.recipes.domain.api.BackendApi
+import com.martianlab.recipes.domain.api.DbApi
+import com.martianlab.recipes.domain.api.RoutingApi
+import com.martianlab.recipes.entities.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class RecipesInteractorImpl @Inject constructor(
-    val recipesRepository: RecipesRepository
+    val recipesRepository: RecipesRepository,
+    val dbApi: DbApi,
+    val backendApi: BackendApi,
+    private val router : RoutingApi
 ) : RecipesInteractor{
+
+    override fun goTo( destination: Destination){
+        router.goTo(destination)
+    }
 
     override suspend fun loadToDb() {
         recipesRepository.loadRecipesToDb()

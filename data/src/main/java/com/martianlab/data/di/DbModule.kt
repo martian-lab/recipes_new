@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.martianlab.recipes.domain.api.DbApi
 import com.martianlab.recipes.tools.db.DbImpl
-import com.martianlab.recipes.tools.db.RecipesDb
+import com.martianlab.data.sources.db.RecipesDb
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

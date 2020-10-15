@@ -13,16 +13,14 @@ import javax.inject.Singleton
 import com.google.gson.GsonBuilder
 
 import com.google.gson.Gson
-
-
-
+import com.martianlab.recipes.domain.api.RoutingApi
 
 
 @Singleton
 class RecipesRepositoryImpl @Inject constructor(
     private val dbApi: DbApi,
     private val backendApi: BackendApi,
-    private val preferences: SharedPreferences
+    //private val preferences: SharedPreferences
 ) : RecipesRepository {
 
 

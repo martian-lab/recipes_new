@@ -4,7 +4,7 @@ import dagger.Module
 
 @Module(
     includes = [
-        //RepositoryModule::class,
+        RepositoryModule::class,
         AndroidSettingsModule::class,
         BackendModule::class,
         DbModule::class,

@@ -45,7 +45,7 @@ dependencies {
     implementation      libraries.dagger
     kapt                libraries.daggerCompiler
 
-    implementation libraries.room
+    api libraries.room
     implementation libraries.roomKtx
     kapt libraries.roomKapt
     implementation libraries.paging

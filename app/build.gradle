@@ -34,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
@@ -44,10 +45,19 @@ dependencies {
     implementation project(":presentation")
 
     implementation      libraries.kotlin
+    implementation      libraries.kotlinReflect
 
     implementation      libraries.dagger
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt                libraries.daggerCompiler
 
+
+
     implementation libraries.appcompat
+    implementation libraries.fragment
+    implementation libraries.supportCardView
+    implementation libraries.recyclerview
+    implementation libraries.constraint
+    implementation libraries.material
 
 }

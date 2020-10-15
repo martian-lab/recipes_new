@@ -33,11 +33,23 @@ dependencies {
 
     implementation libraries.kotlin
     implementation libraries.coreKtx
+    implementation libraries.coroutines
+    implementation libraries.coroutinesAndroid
+
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     implementation      libraries.dagger
     kapt                libraries.daggerCompiler
 
     implementation libraries.appcompat
+    implementation libraries.fragment
+    implementation libraries.supportCardView
+    implementation libraries.recyclerview
+    implementation libraries.constraint
+    implementation libraries.material
 
     testImplementation testLibraries.junit
 

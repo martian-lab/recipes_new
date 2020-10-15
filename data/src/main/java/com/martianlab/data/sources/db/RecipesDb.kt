@@ -1,4 +1,4 @@
-package com.martianlab.recipes.tools.db
+package com.martianlab.data.sources.db
 
 
 import androidx.room.Database
