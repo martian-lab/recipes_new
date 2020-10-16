@@ -3,6 +3,7 @@ package com.martianlab.recipes.presentation.fragments.splash
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.martianlab.recipes.App
 import com.martianlab.recipes.domain.RecipesInteractor
 import com.martianlab.recipes.entities.Category
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 class SplashViewModel(
 
-) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
+) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.Default) {
 
     @Inject
     lateinit var interactor: RecipesInteractor
@@ -24,7 +25,7 @@ class SplashViewModel(
 
     init {
         App.component.inject(this)
-        launch {
+        viewModelScope.launch {
             interactor.firstLaunchCheck()
             interactor.goTo(Destination.MainPage)
         }
