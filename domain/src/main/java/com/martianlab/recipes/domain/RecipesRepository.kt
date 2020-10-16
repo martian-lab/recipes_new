@@ -11,6 +11,8 @@ interface RecipesRepository {
 
     suspend fun loadRecipes() : List<Recipe>
 
+    suspend fun loadRecipes(tags : List<RecipeTag>) : List<Recipe>
+
     suspend fun getRecipe( id : Long ) : Recipe?
 
     suspend fun getRecipesByIngredients( ingredients: List<RecipeIngredient> ) : List<Recipe>

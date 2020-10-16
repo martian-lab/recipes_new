@@ -41,19 +41,31 @@ class RecipesRepositoryImpl @Inject constructor(
 //    }
 
     override suspend fun loadRecipes(): List<Recipe> {
-        val recipes = dbApi.getRecipes()
+        val recipes = dbApi.getRecipes().also { it.forEach {  println("RECIPES:::: recipe=" + it ) } }
         //println("RECIPES: from db size=" + recipes.size )
-        if( recipes.isEmpty() ){
-            loadRecipesFromFile().also {
-                insertRecipes(it)
-                return@loadRecipes it
-            }
-        }
-        return recipes
+//        if( recipes.isEmpty() ){
+//            loadRecipesFromFile().also {
+//                insertRecipes(it)
+//                return@loadRecipes it
+//            }
+//        }
+        return recipes//.also{ it.forEach { println("RECIPES: loaded=" + it ) } }
+    }
+
+    override suspend fun loadRecipes(tags: List<RecipeTag>): List<Recipe> {
+        val recipes = dbApi.getRecipes(tags[0])
+        println("RECIPES: from db size=" + tags )
+//        if( recipes.isEmpty() ){
+//            loadRecipesFromFile().also {
+//                insertRecipes(it)
+//                return@loadRecipes it
+//            }
+//        }
+        return recipes//.also{ it.forEach { println("RECIPES: loaded=" + it ) } }
     }
 
     private fun loadRecipesFromFile() : List<Recipe>{
-        val json = RecipesRepositoryImpl::class.java.classLoader?.getResource("recipes.json")?.readText()
+        val json = RecipesRepositoryImpl::class.java.classLoader?.getResource("mytextfile.json")?.readText()
         val recipeListTypeToken = object : TypeToken<List<Recipe>>() {}.type
         val gson: Gson = GsonBuilder().setDateFormat("MMM dd, yyyy HH:mm:ss").create()
         val recipeList: List<Recipe> = gson.fromJson(json, recipeListTypeToken)
@@ -79,11 +91,12 @@ class RecipesRepositoryImpl @Inject constructor(
     private suspend fun loadCategoryRecipesToDb(category : Category ){
         val count = 20
         var offset = 0
-        println("RECIPES: category=" + category)
+        //println("RECIPES: category=" + category)
         do {
             val result = backendApi.recipeSearch(category.id, 0L, count, offset )
             if( result is Result.Success ){
                 result.data?.let {list ->
+                    println("RECIPES:: res=" + list)
                     val recipeWithTagList = list.map { it.copy(tags = listOf(RecipeTag(id=category.id, recipeId = it.id, title = category.title ))) }
                     println("RECIPES:: firts cat recipe=" + recipeWithTagList[0].tags )
                     dbApi.insert(recipeWithTagList)
@@ -105,6 +118,7 @@ class RecipesRepositoryImpl @Inject constructor(
 
     override suspend fun loadRecipesToDb(){
             val categoryList = getCategoriesFromBackend()
+
             loadCategoriesToDb(categoryList).also { println("RECIPES: catIds=" + it) }
             categoryList.forEach { loadCategoryRecipesToDb(it) }
     }
@@ -127,11 +141,17 @@ class RecipesRepositoryImpl @Inject constructor(
 
     private suspend fun getCategoriesFromBackend() : List<Category>{
         val result = backendApi.getCategories()
-
         val categoryList = if( result is Result.Success ){
+            println("RECIPES:: cats=" + result.data)
             result.data?.map {
+                println("RECIPES:: cat=" + it)
                 val res = backendApi.getCategory(it.id)
-                if( res is Result.Success ) res.data!! else Category(-1L, "", "", 0, 0)
+                println("RECIPES:: catres=" + res)
+                if( res is Result.Success )
+                    it.copy(total = res.data!!.total)
+                    //res.data!!
+                else
+                    Category(-1L, "", "", 0, 0)
             }?.filter { it.id >= 0  }.orEmpty()
         }else listOf()
 

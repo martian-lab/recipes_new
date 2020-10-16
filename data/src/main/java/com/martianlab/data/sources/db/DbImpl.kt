@@ -18,11 +18,16 @@ class DbImpl(
 
 
     override suspend fun getRecipes(tag: RecipeTag): List<Recipe> {
-        return recipeDao.getRecipesByTagTitle(tag.title).map { it.toRecipe() }
+        return recipeDao.getRecipesByTagTitle(tag.title)
+            //.also { it.forEach { println("RECIPES::::, recipe22=" + it) } }
+            .map { it.toRecipe() }
     }
 
     override suspend fun getRecipes(): List<Recipe> {
-        return recipeDao.getRecipes().map { it.toRecipe() }
+        //recipeDao.getTags().also { it.forEach { println("RECIPES::::, tags=" + it) } }
+        return recipeDao.getRecipes()
+            //.also { it.forEach { println("RECIPES::::, recipe22=" + it) } }
+            .map { it.toRecipe() }
     }
 
 //    override fun getRecipesPages(tags : List<RecipeTag>): DataSource.Factory<Int, Recipe> {
@@ -34,6 +39,7 @@ class DbImpl(
     }
 
     override suspend fun insert(recipe: Recipe) : Long {
+        println("RECIPES::::, recipe=" + recipe)
         try {
             return  recipeDao.insert(recipe = recipe.toEntityWithDependencies() )
 

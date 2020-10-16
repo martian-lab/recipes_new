@@ -51,6 +51,9 @@ dependencies {
     implementation libraries.constraint
     implementation libraries.material
 
+    implementation      libraries.glide
+    kapt                libraries.glideKapt
+
     testImplementation testLibraries.junit
 
     androidTestImplementation testLibraries.androidJunit

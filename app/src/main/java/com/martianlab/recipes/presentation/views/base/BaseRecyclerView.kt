@@ -128,7 +128,7 @@ open class BaseRecyclerView @JvmOverloads constructor(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
                 itemViewClass.java.getConstructor(Context::class.java).newInstance(parent.context)
-        ).apply { itemView.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT) }
+        ).apply { itemView.layoutParams = ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
 
         override fun getItemCount() = data.size
 

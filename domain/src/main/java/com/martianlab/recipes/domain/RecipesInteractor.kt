@@ -18,6 +18,8 @@ interface RecipesInteractor {
     suspend fun getRecipe(id:Long) : Recipe?
     //fun getRecipesPaged(category: Category) : LiveData<PagedList<Recipe>>
 
+    suspend fun getRecipes(category: Category) : List<Recipe>
+
     suspend fun searchIngredients(contains: String): List<RecipeIngredient>
     suspend fun searchRecipes(contains: String): List<Recipe>
     suspend fun setFavorite(recipe: Recipe)

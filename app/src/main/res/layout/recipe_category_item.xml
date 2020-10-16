@@ -10,9 +10,6 @@
             name="viewModel"
             type="com.martianlab.recipes.presentation.views.recipeCategory.RecipeCategoryItemViewModel"/>
 
-        <variable
-                name="category"
-                type="com.martianlab.recipes.entities.Category"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -27,22 +24,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@{category.title}"
+                android:text="@{viewModel.title}"
                 android:gravity="center"
                 android:layout_gravity="top"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 tools:text="Рецепты из березы"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.martianlab.recipes.presentation.views.base.BaseRecyclerView
                 android:id="@+id/receiptList"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:context="com.martianlab.recipes.presentation.MainActivity"
+                data="@{viewModel.recipeList}"
                 tools:listitem="@layout/recipe_item"/>
 
 

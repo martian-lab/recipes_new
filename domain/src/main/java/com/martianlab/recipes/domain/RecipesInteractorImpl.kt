@@ -36,7 +36,12 @@ class RecipesInteractorImpl @Inject constructor(
         return recipesRepository.loadRecipes()
     }
 
-//    override fun getRecipesPaged(category: Category): LiveData<PagedList<Recipe>> {
+    override suspend fun getRecipes(category: Category): List<Recipe> {
+        val tags = listOf(RecipeTag(category.id, 0L, category.title))
+        return recipesRepository.loadRecipes(tags)
+    }
+
+    //    override fun getRecipesPaged(category: Category): LiveData<PagedList<Recipe>> {
 //        val tags = listOf(RecipeTag(category.id, 0L, category.title))
 //        return recipesRepository.loadRecipesPaged(tags)
 //    }

@@ -19,7 +19,7 @@ import com.martianlab.recipes.tools.db.entities.*
         RecipeIngredientEntity::class,
         RecipeStageEntity::class
     ],
-    version = 9,
+    version = 10,
     exportSchema = true
 )
 abstract class RecipesDb : RoomDatabase() {

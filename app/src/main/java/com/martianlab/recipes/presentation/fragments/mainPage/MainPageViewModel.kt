@@ -24,14 +24,10 @@ class MainPageViewModel(
     init {
         App.component.inject(this)
         launch {
-            categoryList.set( interactor.getCategories() )
+            //interactor.loadToDb()
+            categoryList.set( interactor.getCategories().also { println("RECIPES::, catsdata=" + it) } )
             println("DAGGER:::, catlist=" + categoryList.get())
         }
     }
 
-
-    public fun doSmth(){
-        println("DAGGER:::")
-        interactor.goTo(Destination.Splash)
-    }
 }

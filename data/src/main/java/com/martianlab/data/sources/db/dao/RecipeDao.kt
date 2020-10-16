@@ -8,11 +8,11 @@ import androidx.paging.DataSource
 interface RecipeDao {
 
     @Transaction
-    @Query("SELECT * FROM recipe JOIN recipe_tag ON recipe.id = recipe_id WHERE recipe_tag.title = :tag_title")
+    @Query("SELECT recipe.* FROM recipe JOIN recipe_tag ON recipe.id = recipe_id WHERE recipe_tag.title = :tag_title ORDER BY recipe.rating DESC, recipe.id DESC")
     suspend fun getRecipesByTagTitle(tag_title: String): List<RecipeWithDependencies>
 
     @Transaction
-    @Query("SELECT * FROM recipe")
+    @Query("SELECT * FROM recipe JOIN recipe_tag ON recipe.id = recipe_id")
     suspend fun getRecipes(): List<RecipeWithDependencies>
 
 
@@ -30,10 +30,13 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert( recipe : RecipeEntity ) : Long
 
+    @Query("SELECT * FROM recipe_tag")
+    suspend fun getTags(): List<RecipeTagEntity>
 
 
     @Transaction
     suspend fun insert( recipe : RecipeWithDependencies ) : Long {
+        //println("RECIPES:::: RecipeWithDependencies=" + recipe )
         val id = insert(recipe.recipeEntity)
         insertComments(recipe.comments)
         insertIngredients(recipe.ingredients)

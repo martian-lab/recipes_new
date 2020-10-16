@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
 
         <variable
-                name="ingredient"
-                type="com.martianlab.recipes.entities.RecipeIngredient" />
+            name="viewModel"
+            type="com.martianlab.recipes.presentation.views.ingredient.IngredientItemViewModel"/>
+
     </data>
 
     <FrameLayout  android:id="@+id/root"
@@ -28,7 +28,7 @@
                 android:ellipsize="end"
                 android:textColor="@color/greyish_brown"
                 android:textSize="14sp"
-                android:text="@{ingredient.title}"
+                android:text="@{viewModel.title}"
                 tools:text="Томаты в собственном соку"/>
 
         <TextView
@@ -38,7 +38,7 @@
                 android:textColor="@color/bluey_grey"
                 android:layout_gravity="right|center_vertical"
                 android:textSize="14sp"
-                android:text="@{ingredient.quantity + ` ` + ingredient.measureUnit}"
+                android:text="@{viewModel.value}"
                 tools:text="400 гр"/>
     </FrameLayout>
 </layout>
