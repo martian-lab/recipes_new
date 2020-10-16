@@ -1,5 +1,6 @@
 package com.martianlab.recipes.presentation.fragments.mainPage
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.martianlab.recipes.App
@@ -20,13 +21,15 @@ class MainPageViewModel(
     lateinit var interactor: RecipesInteractor
 
     val categoryList = ObservableField<List<Category>>()
+    val isLoading = ObservableBoolean(true)
 
     init {
         App.component.inject(this)
         launch {
             //interactor.loadToDb()
             categoryList.set( interactor.getCategories().also { println("RECIPES::, catsdata=" + it) } )
-            println("DAGGER:::, catlist=" + categoryList.get())
+            //println("DAGGER:::, catlist=" + categoryList.get())
+            isLoading.set(false)
         }
     }
 

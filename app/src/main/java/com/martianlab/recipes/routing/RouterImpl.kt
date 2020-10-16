@@ -29,12 +29,16 @@ class RouterImpl @Inject constructor(
                     it.beginTransaction().replace(R.id.container, MainPageFragment()).commit()
                 is Destination.RecipeDetails ->
                     it.beginTransaction()
-                        .replace(R.id.container, DetailsFragment()
+                        .add(R.id.container, DetailsFragment()
                             .apply { arguments = Bundle().apply { putLong("recipeId", destination.recipeId)} })
                         .addToBackStack(null)
                         .commit()
             }
         }
 
+    }
+
+    override fun goBack() {
+        fragmentManager?.popBackStack()
     }
 }

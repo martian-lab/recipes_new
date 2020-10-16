@@ -25,4 +25,5 @@ interface RecipesInteractor {
     suspend fun setFavorite(recipe: Recipe)
     suspend fun removeFavorite(recipe: Recipe)
     suspend fun getFavorites(): List<Recipe>
+    fun onBackPressed()
 }

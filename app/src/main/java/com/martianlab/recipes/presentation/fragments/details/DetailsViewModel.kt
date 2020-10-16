@@ -1,11 +1,12 @@
 package com.martianlab.recipes.presentation.fragments.details
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.martianlab.recipes.App
 import com.martianlab.recipes.domain.RecipesInteractor
 import com.martianlab.recipes.entities.*
-import com.martianlab.recipes.presentation.RecipeComplexity
+import com.martianlab.recipes.entities.RecipeComplexity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +30,7 @@ class DetailsViewModel(
     val complexity = ObservableField<String>()
     val title = ObservableField<String>()
     val imageURL = ObservableField<String>()
+    val isLoading = ObservableBoolean(true)
 
     init {
         App.component.inject(this)
@@ -40,6 +42,7 @@ class DetailsViewModel(
                 loadDetailsToView(it)
             }
         }
+        isLoading.set(false)
     }
 
     internal fun loadDetailsToView(recipe : Recipe ){
@@ -49,6 +52,10 @@ class DetailsViewModel(
         imageURL.set(recipe.imageURL)
         stagesList.set(recipe.stages)
         ingredientsList.set(recipe.ingredients)
+    }
+
+    fun onBackPressed(){
+        interactor.onBackPressed()
     }
 
 }

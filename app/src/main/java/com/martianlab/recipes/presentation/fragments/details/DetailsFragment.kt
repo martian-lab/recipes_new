@@ -10,6 +10,7 @@ import com.martianlab.recipes.databinding.FragmentRecipeDetailsBinding
 import com.martianlab.recipes.presentation.views.ingredient.IngredientItemView
 import com.martianlab.recipes.presentation.views.recipeCategory.RecipeCategoryItemView
 import com.martianlab.recipes.presentation.views.stage.StageItemView
+import kotlinx.android.synthetic.main.fragment_recipe_details.*
 
 class DetailsFragment : Fragment() {
 
@@ -30,11 +31,41 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.recipeId = arguments?.getLong("recipeId")
-
-        binding.ingredientsListView.itemViewClass = IngredientItemView::class
-        binding.stagesListView.itemViewClass = StageItemView::class
-
+        setInitialState()
     }
+
+    private fun setInitialState(){
+        with( binding) {
+            ingredientsListView.itemViewClass = IngredientItemView::class
+            ingredientsListView.visibility = View.VISIBLE
+            stagesListView.itemViewClass = StageItemView::class
+            stagesListView.visibility = View.GONE
+            buttonIngrediends.isSelected = true
+            buttonIngrediends.setOnClickListener { showIngredients() }
+            buttonSteps.setOnClickListener { showSteps() }
+        }
+    }
+
+    private fun showIngredients() {
+        with( binding) {
+            ingredientsListView.visibility = View.VISIBLE
+            stagesListView.visibility = View.GONE
+            appbar.setExpanded(false, true)
+            buttonIngrediends.isSelected = true
+            buttonSteps.isSelected = false
+        }
+    }
+
+    private fun showSteps() {
+        with( binding) {
+            ingredientsListView.visibility = View.GONE
+            stagesListView.visibility = View.VISIBLE
+            appbar.setExpanded(false, true)
+            buttonIngrediends.isSelected = false
+            buttonSteps.isSelected = true
+        }
+    }
+
 
 
 }

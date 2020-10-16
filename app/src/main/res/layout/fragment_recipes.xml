@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:orientation="vertical"
-                android:visibility="visible"
+                visibleGone="@{!viewModel.isLoading}"
                 data="@{viewModel.categoryList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/recipe_category_item" />
@@ -33,7 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                tools:visibility="visible"/>
+                visibleGone="@{viewModel.isLoading}"
+                tools:visibility="invisible"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:layout_width="match_parent"

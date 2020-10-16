@@ -46,7 +46,7 @@ internal object RecipeEntityMapper {
             tags = entity.tags.map { it.toRecipeTag() },
             comments = entity.comments.map { it.toRecipeComment() },
             stages = entity.stages.map { it.toRecipeStage() }
-        ).also { println("RECIPES:::: entity=" + entity ) }
+        )//.also { println("RECIPES:::: entity=" + entity ) }
 
     fun map2EntityWithDependencies( entity: Recipe) : RecipeWithDependencies =
         RecipeWithDependencies(

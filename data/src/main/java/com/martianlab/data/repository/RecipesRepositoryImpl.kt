@@ -41,7 +41,7 @@ class RecipesRepositoryImpl @Inject constructor(
 //    }
 
     override suspend fun loadRecipes(): List<Recipe> {
-        val recipes = dbApi.getRecipes().also { it.forEach {  println("RECIPES:::: recipe=" + it ) } }
+        val recipes = dbApi.getRecipes()//.also { it.forEach {  println("RECIPES:::: recipe=" + it ) } }
         //println("RECIPES: from db size=" + recipes.size )
 //        if( recipes.isEmpty() ){
 //            loadRecipesFromFile().also {
@@ -54,13 +54,15 @@ class RecipesRepositoryImpl @Inject constructor(
 
     override suspend fun loadRecipes(tags: List<RecipeTag>): List<Recipe> {
         val recipes = dbApi.getRecipes(tags[0])
-        println("RECIPES: from db size=" + tags )
-//        if( recipes.isEmpty() ){
+        //println("RECIPES: from db size=" + tags )
+        if( recipes.isEmpty() ){
 //            loadRecipesFromFile().also {
 //                insertRecipes(it)
 //                return@loadRecipes it
 //            }
-//        }
+            loadCategoriesFromFile().forEach { loadCategoryRecipesToDb(it) }
+            return dbApi.getRecipes(tags[0])
+        }
         return recipes//.also{ it.forEach { println("RECIPES: loaded=" + it ) } }
     }
 
@@ -96,9 +98,9 @@ class RecipesRepositoryImpl @Inject constructor(
             val result = backendApi.recipeSearch(category.id, 0L, count, offset )
             if( result is Result.Success ){
                 result.data?.let {list ->
-                    println("RECIPES:: res=" + list)
+                    //println("RECIPES:: res=" + list)
                     val recipeWithTagList = list.map { it.copy(tags = listOf(RecipeTag(id=category.id, recipeId = it.id, title = category.title ))) }
-                    println("RECIPES:: firts cat recipe=" + recipeWithTagList[0].tags )
+                    //println("RECIPES:: firts cat recipe=" + recipeWithTagList[0].tags )
                     dbApi.insert(recipeWithTagList)
 //                    println("RECIPES: list=" + recipeWithTagList )
 //                    list.forEach {
@@ -109,7 +111,7 @@ class RecipesRepositoryImpl @Inject constructor(
                 }
             }
             offset += count
-        }while( offset < category.total )
+        }while( offset < 1/*category.total*/ )
     }
 
     private suspend fun loadCategoriesToDb(categoryList: List<Category>) : List<Long>{
@@ -119,7 +121,7 @@ class RecipesRepositoryImpl @Inject constructor(
     override suspend fun loadRecipesToDb(){
             val categoryList = getCategoriesFromBackend()
 
-            loadCategoriesToDb(categoryList).also { println("RECIPES: catIds=" + it) }
+            loadCategoriesToDb(categoryList)//.also { println("RECIPES: catIds=" + it) }
             categoryList.forEach { loadCategoryRecipesToDb(it) }
     }
 

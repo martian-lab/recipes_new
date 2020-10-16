@@ -16,7 +16,11 @@ class RecipesInteractorImpl @Inject constructor(
     private val router : RoutingApi
 ) : RecipesInteractor{
 
-    override fun goTo( destination: Destination){
+    override fun onBackPressed() {
+        router.goBack()
+    }
+
+    override fun goTo(destination: Destination){
         router.goTo(destination)
     }
 

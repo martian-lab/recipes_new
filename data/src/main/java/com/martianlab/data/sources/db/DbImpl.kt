@@ -39,7 +39,7 @@ class DbImpl(
     }
 
     override suspend fun insert(recipe: Recipe) : Long {
-        println("RECIPES::::, recipe=" + recipe)
+        //println("RECIPES::::, recipe=" + recipe)
         try {
             return  recipeDao.insert(recipe = recipe.toEntityWithDependencies() )
 

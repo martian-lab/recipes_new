@@ -48,11 +48,10 @@ dependencies {
     implementation      libraries.kotlinReflect
 
     implementation      libraries.dagger
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt                libraries.daggerCompiler
 
 
-
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
     implementation libraries.appcompat
     implementation libraries.fragment
     implementation libraries.supportCardView

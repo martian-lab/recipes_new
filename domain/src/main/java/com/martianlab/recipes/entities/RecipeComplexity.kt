@@ -1,4 +1,4 @@
-package com.martianlab.recipes.presentation
+package com.martianlab.recipes.entities
 
 enum class RecipeComplexity(val title: String, val num : Int ){
     LOW("низкая",1 ), MEDIUM("средняя",2 ), HIGH("высокая", 3);

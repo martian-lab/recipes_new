@@ -25,7 +25,6 @@ class RecipeCategoryItemView @JvmOverloads constructor(
     override val binding: RecipeCategoryItemBinding = RecipeCategoryItemBinding.inflate(activity.layoutInflater, this, true)
             .apply { viewModel = this@RecipeCategoryItemView.viewModel }
             .apply { receiptList.itemViewClass = RecipeItemView::class }
-            .apply { receiptList.orientation = LinearLayout.HORIZONTAL }
 
     override fun bindData(data: Category) {
         viewModel.bindData(data)
