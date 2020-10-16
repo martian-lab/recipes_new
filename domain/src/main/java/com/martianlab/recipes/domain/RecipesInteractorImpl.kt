@@ -55,6 +55,10 @@ class RecipesInteractorImpl @Inject constructor(
         return recipesRepository.getRecipe(id)
     }
 
+    override suspend fun firstLaunchCheck() {
+        recipesRepository.loadCategoriesFromDb()
+    }
+
     override suspend fun searchIngredients(contains: String): List<RecipeIngredient> = recipesRepository.searchIngredients(contains)
     override suspend fun searchRecipes(contains: String): List<Recipe> = recipesRepository.searchRecipes(contains)
     override suspend fun setFavorite(recipe: Recipe) = recipesRepository.setFavorite(recipe)

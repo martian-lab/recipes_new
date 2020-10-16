@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.martianlab.recipes.App
+import com.martianlab.recipes.R
 import com.martianlab.recipes.domain.api.RoutingApi
 import com.martianlab.recipes.entities.Destination
 import java.lang.ref.WeakReference

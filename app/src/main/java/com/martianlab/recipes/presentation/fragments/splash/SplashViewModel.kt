@@ -1,4 +1,4 @@
-package com.martianlab.recipes.presentation.fragments.mainPage
+package com.martianlab.recipes.presentation.fragments.splash
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -13,22 +13,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainPageViewModel(
+class SplashViewModel(
 
 ) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
     @Inject
     lateinit var interactor: RecipesInteractor
 
-    val categoryList = ObservableField<List<Category>>()
     val isLoading = ObservableBoolean(true)
 
     init {
         App.component.inject(this)
         launch {
-            //interactor.loadToDb()
-            categoryList.set( interactor.getCategories() )
-            isLoading.set(false)
+            interactor.firstLaunchCheck()
+            interactor.goTo(Destination.MainPage)
         }
     }
 

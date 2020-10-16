@@ -167,6 +167,7 @@ class RecipesRepositoryImpl @Inject constructor(
         if( categories.isEmpty() ){
             loadCategoriesFromFile().also {
                 dbApi.insertCategories(it)
+                it.forEach { loadCategoryRecipesToDb(it) }
                 return it
             }
         }
