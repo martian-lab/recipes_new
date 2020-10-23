@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -55,13 +56,28 @@ dependencies {
     implementation libraries.loginIntercepter
     implementation libraries.gsonConverter
 
+    ext {
+        ktor_version = "1.4.1"
+    }
+
+// Ktor
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-serialization-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-gson:$ktor_version"
+
     implementation libraries.firebaseCore
 
     testImplementation testLibraries.junit
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //androidTestImplementation testLibraries.androidJunit
     //androidTestImplementation testLibraries.espresso
 
 
 
+}
+repositories {
+    mavenCentral()
 }

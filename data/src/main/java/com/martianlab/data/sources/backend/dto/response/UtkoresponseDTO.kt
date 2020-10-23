@@ -1,24 +1,36 @@
 package com.martianlab.recipes.tools.backend.dto.response
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 internal class UtkoresponseDTO<B>(
     @SerializedName("Head")
+    @SerialName("Head")
     val head: Head,
 
     @SerializedName("Body")
+    @SerialName("Body")
     val body: B
 ) {
+    @Serializable
     class Head(
         @SerializedName("SessionToken")
-        val accessToken: String?,
+        @SerialName("SessionToken")
+        val accessToken: String?= null,
 
         @SerializedName("SessionGroups")
-        val sessionGroups: Array<String>?
+        @SerialName("SessionGroups")
+        val sessionGroups: List<String>? = null
+
+
     )
 
+    @Serializable
     class BaseBody(
         @SerializedName("ErrorList")
-        val errors: Array<UtkerrorDTO>?
+        @SerialName("ErrorList")
+        val errors: List<UtkerrorDTO>?= null
     )
 }

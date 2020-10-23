@@ -5,24 +5,33 @@ import com.martianlab.recipes.tools.backend.dto.CategoryDTO
 import com.martianlab.recipes.tools.backend.dto.RecipeCookingDTO
 import com.martianlab.recipes.tools.backend.dto.RecipeDTO
 import com.martianlab.recipes.tools.backend.dto.RecipeIngredientDTO
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 class RecipeSearchResponseBodyDTO(
 
     @SerializedName("RecipeList")
-    val recipeList: List<RecipeDTO>?,
+    @SerialName("RecipeList")
+    val recipeList: List<RecipeDTO>? = null,
 
     @SerializedName("RecipeCookingList")
-    val recipeCookingList: List<RecipeCookingDTO>?,
+    @SerialName("RecipeCookingList")
+    val recipeCookingList: List<RecipeCookingDTO>?= null,
 
     @SerializedName("Category")
-    val categoryList: List<CategoryDTO>?,
+    @SerialName("Category")
+    val categoryList: List<CategoryDTO>?= null,
 
     @SerializedName("Total")
+    @SerialName("Total")
     val total: Int,
 
     @SerializedName("ErrorList")
-    val errors: Array<UtkerrorDTO>?,
+    @SerialName("ErrorList")
+    val errors: Array<UtkerrorDTO>?= null,
 
     @SerializedName("RecipeIngredientList")
-    val ingredientList: List<RecipeIngredientDTO>?
+    @SerialName("RecipeIngredientList")
+    val ingredientList: List<RecipeIngredientDTO>?= null
 )

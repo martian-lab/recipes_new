@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SplashViewModel(
 
-) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.Default) {
+) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
     @Inject
     lateinit var interactor: RecipesInteractor
@@ -25,7 +25,7 @@ class SplashViewModel(
 
     init {
         App.component.inject(this)
-        viewModelScope.launch {
+        launch {
             interactor.firstLaunchCheck()
             interactor.goTo(Destination.MainPage)
         }

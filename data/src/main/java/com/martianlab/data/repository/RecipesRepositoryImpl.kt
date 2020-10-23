@@ -60,7 +60,8 @@ class RecipesRepositoryImpl @Inject constructor(
 //                insertRecipes(it)
 //                return@loadRecipes it
 //            }
-            loadCategoriesFromFile().forEach { loadCategoryRecipesToDb(it) }
+            getCategoriesFromBackend().forEach { loadCategoryRecipesToDb(it) }
+            //loadCategoriesFromFile().forEach { loadCategoryRecipesToDb(it) }
             return dbApi.getRecipes(tags[0])
         }
         return recipes//.also{ it.forEach { println("RECIPES: loaded=" + it ) } }
@@ -165,7 +166,9 @@ class RecipesRepositoryImpl @Inject constructor(
         val categories = dbApi.loadCategories()
         //println("RECIPES: categories from db size=" + categories.size )
         if( categories.isEmpty() ){
-            loadCategoriesFromFile().also {
+            getCategoriesFromBackend()
+            //loadCategoriesFromFile()
+                .also {
                 dbApi.insertCategories(it)
                 it.forEach { loadCategoryRecipesToDb(it) }
                 return it

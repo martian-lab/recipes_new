@@ -29,7 +29,7 @@ ext.versions = [
 
 
         gradleVersionsPlugin    : '0.13.0',
-        androidGradlePlugin     : '4.0.1',
+        androidGradlePlugin     : '4.1.0',
 
 
         // Retrofit

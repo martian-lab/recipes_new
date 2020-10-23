@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class MainPageViewModel(
 
-) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.Default) {
+) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
     @Inject
     lateinit var interactor: RecipesInteractor
@@ -26,7 +26,7 @@ class MainPageViewModel(
 
     init {
         App.component.inject(this)
-        viewModelScope.launch {
+        launch {
             categoryList.set( interactor.getCategories() )
             isLoading.set(false)
         }

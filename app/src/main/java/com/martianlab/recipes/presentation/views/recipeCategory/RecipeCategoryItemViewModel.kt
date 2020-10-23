@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class RecipeCategoryItemViewModel internal constructor() : ViewModelForView, CoroutineScope by CoroutineScope(
-    Dispatchers.IO) {
+class RecipeCategoryItemViewModel internal constructor() : ViewModelForView, CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
     @Inject
     lateinit var interactor: RecipesInteractor

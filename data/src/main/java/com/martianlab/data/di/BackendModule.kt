@@ -2,7 +2,8 @@ package com.martianlab.data.di
 
 import android.app.Application
 import com.martianlab.recipes.domain.api.BackendApi
-import com.martianlab.recipes.tools.backend.BackendImpl
+import com.martianlab.data.sources.backend.BackendImpl
+import com.martianlab.data.sources.backend.BackendKtorImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,6 +16,6 @@ class BackendModule(
     @Singleton
     @Provides
     internal fun provideBackendApi(): BackendApi {
-        return BackendImpl()
+        return BackendKtorImpl()
     }
 }
