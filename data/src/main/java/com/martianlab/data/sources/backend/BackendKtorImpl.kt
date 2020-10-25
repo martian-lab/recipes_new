@@ -45,8 +45,8 @@ class BackendKtorImpl() : BackendApi{
             request= query,
             methodName = "RecipeSearch",
             androidId = "000"
-        ).also { println("KTOR:::, result=" + it) }
-            .map {
+        )//.also { println("KTOR:::, result=" + it) }
+         .map {
             it.body.toRecipeList()
         }
     }
@@ -57,7 +57,8 @@ class BackendKtorImpl() : BackendApi{
             request= query,
             methodName = "RecipeSearch",
             androidId = "000"
-        ).also { println("KTOR:::, result=" + it) }.map{
+        )//.also { println("KTOR:::, result=" + it) }
+        .map{
             it.body.toCategoryList()
         }
     }
@@ -68,7 +69,8 @@ class BackendKtorImpl() : BackendApi{
             request= query,
             methodName = "RecipeSearch",
             androidId = "000"
-        ).also { println("KTOR:::, result=" + it) }.map{
+        )//.also { println("KTOR:::, result=" + it) }
+        .map{
             it.body.toCategory()
         }
     }

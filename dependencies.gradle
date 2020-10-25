@@ -63,6 +63,8 @@ ext.versions = [
         firebaseCrashlytics     : '2.2.1',
         firebaseCore            : '17.5.1',
         firebaseMessaging       : '17.5.0',
+
+        sql_delight             : '1.4.3'
 ]
 
 ext.libraries = [
@@ -126,7 +128,9 @@ ext.libraries = [
 
         //Glide
         glide                   : 'com.github.bumptech.glide:glide:4.10.0',
-        glideKapt               : 'com.github.bumptech.glide:compiler:4.10.0'
+        glideKapt               : 'com.github.bumptech.glide:compiler:4.10.0',
+
+        sql_delight             : "com.squareup.sqldelight:android-driver:$versions.sql_delight"
 ]
 
 ext.testLibraries = [
@@ -159,6 +163,8 @@ ext.gradlePlugins = [
         googleServices          : "com.google.gms:google-services:$versions.googleServices",
 
         safeArgs                :  "androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0",
+
+        sqldelight              : "com.squareup.sqldelight:gradle-plugin:$versions.sql_delight"
 
         //firebaseAppdistribution : "com.google.firebase:firebase-appdistribution-gradle:$versions.firebaseAppdistribution",
         //firebaseCrashlytics     : "com.google.firebase:firebase-crashlytics-gradle:$versions.firebaseCrashlytics"
