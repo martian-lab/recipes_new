@@ -1,6 +1,6 @@
 package com.martianlab.data.sources.db_new.mapper
 
-import com.martianlab.data.sources.db_new.RecipeWithDependenciesEntity
+import com.martianlab.data.sources.db_new.entities.RecipeWithDependenciesEntity
 import com.martianlab.recipes.entities.*
 import commartianlabrecipesdatasourcesdb.*
 

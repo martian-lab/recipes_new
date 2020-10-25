@@ -1,4 +1,4 @@
-package com.martianlab.data.sources.db_new.adapters
+package com.martianlab.data.sources.db_new.converters
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

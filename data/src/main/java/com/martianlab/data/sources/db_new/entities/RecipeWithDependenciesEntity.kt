@@ -1,4 +1,4 @@
-package com.martianlab.data.sources.db_new
+package com.martianlab.data.sources.db_new.entities
 
 import commartianlabrecipesdatasourcesdb.*
 

@@ -82,6 +82,21 @@ SELECT * FROM recipeEntity WHERE id = ?;
 insert:
 INSERT OR REPLACE INTO `recipeEntity` (`id`,`title`,`text`,`complexity`,`personCount`,`imageURL`,`rating`,`ratingVotes`) VALUES (nullif(?, 0),?,?,?,?,?,?,?);
 
+insertRecipe:
+INSERT OR REPLACE INTO `recipeEntity`  VALUES ?;
+
+insertComment:
+INSERT OR REPLACE INTO `recipeCommentEntity`  VALUES ?;
+
+insertIngredient:
+INSERT OR REPLACE INTO `recipeIngredientEntity`  VALUES ?;
+
+insertStage:
+INSERT OR REPLACE INTO `recipeStageEntity`  VALUES ?;
+
+insertTag:
+INSERT OR REPLACE INTO `recipeTagEntity`  VALUES ?;
+
 insertComments:
 INSERT OR REPLACE INTO `recipeCommentEntity` (`id`,`recipeId`,`authorId`,`authorName`,`date`,`text`,`parentCommentId`,`photoURLs`) VALUES (nullif(?, 0),?,?,?,?,?,?,?);
 

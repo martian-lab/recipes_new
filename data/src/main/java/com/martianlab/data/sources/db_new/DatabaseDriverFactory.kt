@@ -1,15 +1,20 @@
 package com.martianlab.data.sources.db_new
 
 import android.content.Context
-import com.martianlab.data.sources.db_new.adapters.Converters.dateAdapter
-import com.martianlab.data.sources.db_new.adapters.Converters.listOfStringsAdapter
+import com.martianlab.data.sources.db_new.converters.Converters.dateAdapter
+import com.martianlab.data.sources.db_new.converters.Converters.listOfStringsAdapter
+import com.martianlab.data.sources.db_new.entities.RecipeWithDependenciesEntity
+import com.martianlab.data.sources.db_new.mapper.toEntity
+import com.martianlab.data.sources.db_new.mapper.toModel
 import com.martianlab.data.sources.db_new.mapper.toRecipe
+import com.martianlab.data.sources.db_new.mapper.toRecipeIngredient
 import com.martianlab.recipes.data.sources.db.Database
 import com.martianlab.recipes.domain.api.DbApi
 import com.martianlab.recipes.entities.Category
 import com.martianlab.recipes.entities.Recipe
 import com.martianlab.recipes.entities.RecipeIngredient
 import com.martianlab.recipes.entities.RecipeTag
+import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import commartianlabrecipesdatasourcesdb.RecipeCommentEntity
 import commartianlabrecipesdatasourcesdb.RecipeEntity
@@ -28,49 +33,61 @@ class DatabaseDriverFactory(private val context: Context) : DbApi {
         recipeCommentEntityAdapter = RecipeCommentEntity.Adapter(photoURLsAdapter = listOfStringsAdapter, dateAdapter = dateAdapter)
     )
 
-    override suspend fun getRecipes(tag: RecipeTag): List<Recipe> =
-         db.recipeEntityQueries.getRecipesByTagTitle(tag.title).executeAsList()
-            .map { it.toRecipeWithDependenciesEntity().toRecipe() }
+    val recipesDb = db.recipeEntityQueries
+    val categoryDb = db.categoryEntityQueries
 
-    fun RecipeEntity.toRecipeWithDependenciesEntity() : RecipeWithDependenciesEntity{
-        val tags = db.recipeEntityQueries.getTagsByRecipe(id).executeAsList().toSet()
-        val stages = db.recipeEntityQueries.getStagesByRecipe(id).executeAsList()
-        val comments = db.recipeEntityQueries.getCommentsByRecipe(id).executeAsList()
-        val ingredients = db.recipeEntityQueries.getIngredientsByRecipe(id).executeAsList()
+    private fun RecipeEntity.toRecipeWithDependenciesEntity() : RecipeWithDependenciesEntity {
+
+        val tags = recipesDb.getTagsByRecipe(id).executeAsList().toSet()
+        val stages = recipesDb.getStagesByRecipe(id).executeAsList()
+        val comments = recipesDb.getCommentsByRecipe(id).executeAsList()
+        val ingredients = recipesDb.getIngredientsByRecipe(id).executeAsList()
+
         return RecipeWithDependenciesEntity( this, tags, stages, ingredients, comments)
     }
 
-    override suspend fun getRecipes(): List<Recipe> {
-        TODO("Not yet implemented")
-    }
+    private fun Query<RecipeEntity>.toRecipeList() =
+        this.executeAsList().map { it.toRecipeWithDependenciesEntity().toRecipe() }
 
-    override suspend fun getRecipeById(id: Long): Recipe {
-        TODO("Not yet implemented")
-    }
+
+    override suspend fun getRecipes(tag: RecipeTag): List<Recipe> =
+        recipesDb.getRecipesByTagTitle(tag.title).toRecipeList()
+
+    override suspend fun getRecipes(): List<Recipe> =
+        recipesDb.getRecipes().toRecipeList()
+
+
+    override suspend fun getRecipeById(id: Long): Recipe =
+        recipesDb
+            .getById(id)
+            .executeAsOne()
+            .toRecipeWithDependenciesEntity()
+            .toRecipe()
+
 
     override suspend fun insert(recipe: Recipe): Long {
-        TODO("Not yet implemented")
+        recipesDb.insertRecipe(recipe.toEntity())
+        return 1
     }
 
     override suspend fun insert(recipeList: List<Recipe>) {
-        TODO("Not yet implemented")
+        recipeList.forEach { insert(it) }
     }
 
-    override suspend fun loadCategories(): List<Category> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun loadCategories(): List<Category> =
+        categoryDb.getAll().executeAsList().map { it.toModel() }
+
 
     override suspend fun insertCategories(categoryList: List<Category>): List<Long> {
-        TODO("Not yet implemented")
+        categoryList.forEach { categoryDb.insert(it.toEntity()) }
+        return emptyList()
     }
 
-    override suspend fun searchIngredients(contains: String): List<RecipeIngredient> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun searchIngredients(contains: String): List<RecipeIngredient> =
+        recipesDb.searchIngredients(contains).executeAsList().map { it.toRecipeIngredient() }
 
-    override suspend fun searchRecipes(contains: String): List<Recipe> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun searchRecipes(contains: String): List<Recipe> =
+        recipesDb.searchRecipes(contains).toRecipeList()
 
     override suspend fun setFavorite(recipe: Recipe) {
         TODO("Not yet implemented")
