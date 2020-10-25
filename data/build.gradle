@@ -5,6 +5,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.squareup.sqldelight'
 
+
+sqldelight {
+    AppDatabase {
+        packageName = "com.martianlab.recipes.data.sources.db"
+    }
+}
+
 android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion  versions.buildTools
