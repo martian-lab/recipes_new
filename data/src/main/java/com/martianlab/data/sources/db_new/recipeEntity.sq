@@ -17,13 +17,6 @@ CREATE TABLE IF NOT EXISTS `User` (
 
 CREATE UNIQUE INDEX IF NOT EXISTS `index_User_pin` ON `User` (`pin`);
 
-CREATE TABLE IF NOT EXISTS `category` (
-    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    `imageUrl` TEXT,
-    `title` TEXT NOT NULL,
-    `sort` INTEGER as Int NOT NULL,
-    `total` INTEGER as Int NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS `recipe_tag` (
     `id` INTEGER NOT NULL,
@@ -73,3 +66,39 @@ PRIMARY KEY(`id`),
 FOREIGN KEY(`recipe_id`) REFERENCES `recipe`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE );
 
 CREATE INDEX IF NOT EXISTS `index_recipe_entity_recipe_id` ON `recipe_entity` (`recipe_id`);
+
+getRecipesByTagTitle:
+SELECT recipe.* FROM recipe JOIN recipe_tag ON recipe.id = recipe_id WHERE recipe_tag.title = ? ORDER BY recipe.rating DESC, recipe.id DESC;
+
+getRecipes:
+SELECT * FROM recipe JOIN recipe_tag ON recipe.id = recipe_id;
+
+getById:
+SELECT * FROM recipe WHERE id = ?;
+
+insert:
+INSERT OR REPLACE INTO `recipe` (`id`,`title`,`text`,`complexity`,`person_count`,`image_url`,`rating`,`votes`) VALUES (nullif(?, 0),?,?,?,?,?,?,?);
+
+insertComments:
+INSERT OR REPLACE INTO `recipe_comment` (`id`,`recipe_id`,`authorId`,`authorName`,`date`,`text`,`parentCommentId`,`photoURLs`) VALUES (nullif(?, 0),?,?,?,?,?,?,?);
+
+insertIngredients:
+INSERT OR REPLACE INTO `recipe_ingredient` (`id`,`recipe_id`,`title`,`quantity`,`measureUnit`,`position`) VALUES (?,?,?,?,?,?);
+
+insertStages:
+INSERT OR REPLACE INTO `recipe_entity` (`id`,`recipe_id`,`imageURL`,`text`,`step`) VALUES (?,?,?,?,?);
+
+insertTags:
+INSERT OR REPLACE INTO `recipe_tag` (`id`,`title`,`recipe_id`) VALUES (?,?,?);
+
+removeTag:
+DELETE FROM recipe_tag WHERE recipe_id = ? AND title  = ?;
+
+searchRecipes:
+SELECT * FROM recipe WHERE recipe.title LIKE ?;
+
+searchIngredients:
+SELECT * FROM recipe_ingredient WHERE recipe_ingredient.title LIKE ?;
+
+getByIngredient:
+SELECT * FROM recipe JOIN recipe_ingredient ON recipe.id = recipe_id WHERE recipe_ingredient.title = ?;

@@ -7,7 +7,7 @@ apply plugin: 'com.squareup.sqldelight'
 
 
 sqldelight {
-    AppDatabase {
+    Database {
         packageName = "com.martianlab.recipes.data.sources.db"
     }
 }
@@ -63,6 +63,8 @@ dependencies {
     implementation libraries.retrofit
     implementation libraries.loginIntercepter
     implementation libraries.gsonConverter
+
+    implementation libraries.sql_delight
 
     ext {
         ktor_version = "1.4.1"
