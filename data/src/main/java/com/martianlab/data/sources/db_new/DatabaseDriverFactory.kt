@@ -10,10 +10,7 @@ import com.martianlab.data.sources.db_new.mapper.toRecipe
 import com.martianlab.data.sources.db_new.mapper.toRecipeIngredient
 import com.martianlab.recipes.data.sources.db.Database
 import com.martianlab.recipes.domain.api.DbApi
-import com.martianlab.recipes.entities.Category
-import com.martianlab.recipes.entities.Recipe
-import com.martianlab.recipes.entities.RecipeIngredient
-import com.martianlab.recipes.entities.RecipeTag
+import com.martianlab.recipes.entities.*
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import commartianlabrecipesdatasourcesdb.RecipeCommentEntity
@@ -67,12 +64,30 @@ class DatabaseDriverFactory(private val context: Context) : DbApi {
 
     override suspend fun insert(recipe: Recipe): Long {
         recipesDb.insertRecipe(recipe.toEntity())
+        with(recipe){
+            insertCommentList(comments)
+            insertStageList(stages)
+            insertIngredientList(ingredients)
+            insertTagList(tags)
+        }
         return 1
     }
 
-    override suspend fun insert(recipeList: List<Recipe>) {
+    override suspend fun insert(recipeList: List<Recipe>) =
         recipeList.forEach { insert(it) }
-    }
+
+    suspend fun insertCommentList(list: List<RecipeComment>) =
+        list.forEach { recipesDb.insertComment(it.toEntity()) }
+
+    suspend fun insertIngredientList(list: List<RecipeIngredient>) =
+        list.forEach { recipesDb.insertIngredient(it.toEntity()) }
+
+    suspend fun insertStageList(list: List<RecipeStage>) =
+        list.forEach { recipesDb.insertStage(it.toEntity()) }
+
+    suspend fun insertTagList(list: List<RecipeTag>) =
+        list.forEach { recipesDb.insertTag(it.toEntity()) }
+
 
     override suspend fun loadCategories(): List<Category> =
         categoryDb.getAll().executeAsList().map { it.toModel() }
