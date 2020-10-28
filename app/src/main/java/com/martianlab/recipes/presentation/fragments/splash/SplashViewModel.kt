@@ -12,19 +12,18 @@ import com.martianlab.recipes.entities.Recipe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import javax.inject.Inject
 
 class SplashViewModel(
+) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO), KoinComponent {
 
-) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
-
-    @Inject
-    lateinit var interactor: RecipesInteractor
+    val interactor: RecipesInteractor by inject()
 
     val isLoading = ObservableBoolean(true)
 
     init {
-        App.component.inject(this)
         launch {
             interactor.firstLaunchCheck()
             interactor.goTo(Destination.MainPage)

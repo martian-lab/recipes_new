@@ -10,19 +10,19 @@ import com.martianlab.recipes.presentation.views.base.ViewModelForView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+
 import javax.inject.Inject
 
 
-class RecipeCategoryItemViewModel internal constructor() : ViewModelForView, CoroutineScope by CoroutineScope(Dispatchers.IO) {
+class RecipeCategoryItemViewModel internal constructor(
 
-    @Inject
-    lateinit var interactor: RecipesInteractor
+) : ViewModelForView, CoroutineScope by CoroutineScope(Dispatchers.IO), KoinComponent {
+
+    private val interactor: RecipesInteractor by inject()
 
     private lateinit var item : Category
-
-    init {
-        App.component.inject(this)
-    }
 
     val title = ObservableField<String>()
     val isChecked = ObservableBoolean()

@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.martianlab.recipes.databinding.FragmentRecipesBinding
+import com.martianlab.recipes.presentation.fragments.details.DetailsViewModel
 import com.martianlab.recipes.presentation.views.recipeCategory.RecipeCategoryItemView
 
 class MainPageFragment : Fragment() {
@@ -14,9 +16,7 @@ class MainPageFragment : Fragment() {
 
     lateinit var binding: FragmentRecipesBinding
 
-    val viewModel by lazy {
-        ViewModelProvider(this)[MainPageViewModel::class.java]
-    }
+    val viewModel : MainPageViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =

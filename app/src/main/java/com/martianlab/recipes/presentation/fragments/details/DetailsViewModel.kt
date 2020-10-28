@@ -10,15 +10,16 @@ import com.martianlab.recipes.entities.RecipeComplexity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.java.KoinJavaComponent
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class DetailsViewModel(
+) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO), KoinComponent {
 
-) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
-
-    @Inject
-    lateinit var interactor: RecipesInteractor
+    private val interactor: RecipesInteractor by inject()
 
     var recipeId : Long? by Delegates.observable(null){ _, _, new ->
         launch { getReceipt(new) }
@@ -32,9 +33,6 @@ class DetailsViewModel(
     val imageURL = ObservableField<String>()
     val isLoading = ObservableBoolean(true)
 
-    init {
-        App.component.inject(this)
-    }
 
     internal suspend fun getReceipt(recipeId : Long?){
         recipeId?.let {

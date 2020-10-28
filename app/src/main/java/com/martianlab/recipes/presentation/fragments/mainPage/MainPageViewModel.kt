@@ -12,20 +12,19 @@ import com.martianlab.recipes.entities.Recipe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.experimental.property.inject
+import org.koin.java.KoinJavaComponent.inject
 import javax.inject.Inject
 
 class MainPageViewModel(
-
 ) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
-    @Inject
-    lateinit var interactor: RecipesInteractor
+    private val interactor: RecipesInteractor by inject(RecipesInteractor::class.java)
 
     val categoryList = ObservableField<List<Category>>()
     val isLoading = ObservableBoolean(true)
 
     init {
-        App.component.inject(this)
         launch {
             categoryList.set( interactor.getCategories() )
             isLoading.set(false)

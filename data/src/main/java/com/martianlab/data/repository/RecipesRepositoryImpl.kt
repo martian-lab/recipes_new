@@ -1,6 +1,5 @@
 package com.martianlab.data.repository
 
-import android.content.SharedPreferences
 import com.google.gson.reflect.TypeToken
 import com.martianlab.recipes.domain.api.DbApi
 import com.martianlab.recipes.domain.api.BackendApi
@@ -13,7 +12,6 @@ import javax.inject.Singleton
 import com.google.gson.GsonBuilder
 
 import com.google.gson.Gson
-import com.martianlab.recipes.domain.api.RoutingApi
 
 
 @Singleton
@@ -54,7 +52,7 @@ class RecipesRepositoryImpl @Inject constructor(
 
     override suspend fun loadRecipes(tags: List<RecipeTag>): List<Recipe> {
         val recipes = dbApi.getRecipes(tags[0])
-        //println("RECIPES: from db size=" + tags )
+        println("RECIPES: from db size=" + recipes.size )
         if( recipes.isEmpty() ){
 //            loadRecipesFromFile().also {
 //                insertRecipes(it)
@@ -94,12 +92,12 @@ class RecipesRepositoryImpl @Inject constructor(
     private suspend fun loadCategoryRecipesToDb(category : Category ){
         val count = 20
         var offset = 0
-        //println("RECIPES: category=" + category)
+        println("RECIPES: category=" + category)
         do {
             val result = backendApi.recipeSearch(category.id, 0L, count, offset )
             if( result is Result.Success ){
                 result.data?.let {list ->
-                    //println("RECIPES:: res=" + list)
+                    println("RECIPES:: res=" + list)
                     val recipeWithTagList = list.map { it.copy(tags = listOf(RecipeTag(id=category.id, recipeId = it.id, title = category.title ))) }
                     //println("RECIPES:: firts cat recipe=" + recipeWithTagList[0].tags )
                     dbApi.insert(recipeWithTagList)
@@ -147,9 +145,9 @@ class RecipesRepositoryImpl @Inject constructor(
         val categoryList = if( result is Result.Success ){
             println("RECIPES:: cats=" + result.data)
             result.data?.map {
-                println("RECIPES:: cat=" + it)
+                //println("RECIPES:: cat=" + it)
                 val res = backendApi.getCategory(it.id)
-                println("RECIPES:: catres=" + res)
+                //println("RECIPES:: catres=" + res)
                 if( res is Result.Success )
                     it.copy(total = res.data!!.total)
                     //res.data!!
@@ -164,7 +162,7 @@ class RecipesRepositoryImpl @Inject constructor(
     override suspend fun loadCategoriesFromDb(): List<Category> {
 //        loadCategoriesToDb(getCategoriesFromBackend())
         val categories = dbApi.loadCategories()
-        //println("RECIPES: categories from db size=" + categories.size )
+        println("RECIPES: categories from db size=" + categories.size )
         if( categories.isEmpty() ){
             getCategoriesFromBackend()
             //loadCategoriesFromFile()

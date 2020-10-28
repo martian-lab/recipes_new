@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.martianlab.recipes.databinding.FragmentRecipeDetailsBinding
 import com.martianlab.recipes.presentation.views.ingredient.IngredientItemView
@@ -14,9 +15,7 @@ import kotlinx.android.synthetic.main.fragment_recipe_details.*
 
 class DetailsFragment : Fragment() {
 
-    val viewModel by lazy {
-        ViewModelProvider(this)[DetailsViewModel::class.java]
-    }
+    val viewModel : DetailsViewModel by viewModels()
 
     lateinit var binding: FragmentRecipeDetailsBinding
 

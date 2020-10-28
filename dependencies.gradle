@@ -24,6 +24,8 @@ ext.versions = [
         kotlin                  : '1.4.10',
         ktLint                  : '0.23.1',
 
+        koin                    : '3.0.0-alpha-4', //'2.2.0-rc-3'
+
         // Dagger
         daggerVersion           : '2.29.1',
 
@@ -130,7 +132,14 @@ ext.libraries = [
         glide                   : 'com.github.bumptech.glide:glide:4.10.0',
         glideKapt               : 'com.github.bumptech.glide:compiler:4.10.0',
 
-        sql_delight             : "com.squareup.sqldelight:android-driver:$versions.sql_delight"
+        sql_delight             : "com.squareup.sqldelight:android-driver:$versions.sql_delight",
+
+        //Koin
+        koin_core               : "org.koin:koin-core:${versions.koin}",
+        // Koin Extended & experimental features
+        koin_ext                : "org.koin:koin-core-ext:${versions.koin}",
+        koin_android            : "org.koin:koin-android:${versions.koin}",
+        koin_viewModel          : "org.koin:koin-androidx-viewmodel:${versions.koin}"
 ]
 
 ext.testLibraries = [

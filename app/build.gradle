@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'koin'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -63,7 +64,17 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+
+    implementation libraries.koin_core
+    implementation libraries.koin_android
+    implementation libraries.koin_viewModel
+    implementation libraries.koin_ext
+
 }
 repositories {
     mavenCentral()
+    jcenter()
+    maven {
+        url  "https://dl.bintray.com/ekito/koin"
+    }
 }

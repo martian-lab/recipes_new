@@ -76,16 +76,16 @@ class DatabaseDriverFactory(private val context: Context) : DbApi {
     override suspend fun insert(recipeList: List<Recipe>) =
         recipeList.forEach { insert(it) }
 
-    suspend fun insertCommentList(list: List<RecipeComment>) =
+    private fun insertCommentList(list: List<RecipeComment>) =
         list.forEach { recipesDb.insertComment(it.toEntity()) }
 
-    suspend fun insertIngredientList(list: List<RecipeIngredient>) =
+    private fun insertIngredientList(list: List<RecipeIngredient>) =
         list.forEach { recipesDb.insertIngredient(it.toEntity()) }
 
-    suspend fun insertStageList(list: List<RecipeStage>) =
+    private fun insertStageList(list: List<RecipeStage>) =
         list.forEach { recipesDb.insertStage(it.toEntity()) }
 
-    suspend fun insertTagList(list: List<RecipeTag>) =
+    private fun insertTagList(list: List<RecipeTag>) =
         list.forEach { recipesDb.insertTag(it.toEntity()) }
 
 

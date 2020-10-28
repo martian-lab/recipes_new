@@ -17,12 +17,11 @@ import io.ktor.http.*
 import io.ktor.util.network.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import java.io.IOException
 
 
 class BackendKtorImpl() : BackendApi{
 
-    private val URL = "http://www.utkonos.ru/api/restt/"
+    private val URL = "http://www.utkonos.ru/api/rest/"
     private val nonStrictJson = Json { isLenient = true; ignoreUnknownKeys = true }
 
     val client: HttpClient = HttpClient{
@@ -48,7 +47,7 @@ class BackendKtorImpl() : BackendApi{
         )//.also { println("KTOR:::, result=" + it) }
          .map {
             it.body.toRecipeList()
-        }
+        }.also { println("KTOR:::, result=" + it) }
     }
 
     override suspend fun getCategories(): Result<List<Category>> {
@@ -60,7 +59,7 @@ class BackendKtorImpl() : BackendApi{
         )//.also { println("KTOR:::, result=" + it) }
         .map{
             it.body.toCategoryList()
-        }
+        }.also { println("KTOR:::, result=" + it) }
     }
 
     override suspend fun getCategory(categoryId: Long): Result<Category?> {
@@ -72,7 +71,7 @@ class BackendKtorImpl() : BackendApi{
         )//.also { println("KTOR:::, result=" + it) }
         .map{
             it.body.toCategory()
-        }
+        }.also { println("KTOR:::, result=" + it) }
     }
 
 }

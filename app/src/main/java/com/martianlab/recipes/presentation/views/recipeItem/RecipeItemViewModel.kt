@@ -7,17 +7,15 @@ import com.martianlab.recipes.domain.RecipesInteractor
 import com.martianlab.recipes.entities.Destination
 import com.martianlab.recipes.entities.Recipe
 import com.martianlab.recipes.presentation.views.base.ViewModelForView
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.java.KoinJavaComponent
 import javax.inject.Inject
 
 
-class RecipeItemViewModel internal constructor() : ViewModelForView {
+class RecipeItemViewModel internal constructor() : ViewModelForView, KoinComponent {
 
-    init{
-        App.component.inject(this)
-    }
-
-    @Inject
-    lateinit var interactor: RecipesInteractor
+    private val interactor: RecipesInteractor by inject()
 
     private lateinit var item : Recipe
 
